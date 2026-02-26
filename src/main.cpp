@@ -309,36 +309,51 @@ struct QueryResult {
 };
 
 static QueryResult query_tips_gt(const TripTable& t, double threshold) {
-    QueryResult r;
-    for (const auto& row : t.rows) {
+    std::size_t count = 0;
+    double sum = 0.0;
+
+    #pragma omp parallel for reduction(+:count,sum) schedule(static)
+    for (std::int64_t i = 0; i < static_cast<std::int64_t>(t.rows.size()); i++) {
+        const auto& row = t.rows[i];
         if (row.tips && *row.tips > threshold) {
-            r.count++;
-            r.sum += *row.tips;
+            count++;
+            sum += *row.tips;
         }
     }
-    return r;
+
+    return QueryResult{count, sum};
 }
 
 static QueryResult query_fare_gt(const TripTable& t, double threshold) {
-    QueryResult r;
-    for (const auto& row : t.rows) {
+    std::size_t count = 0;
+    double sum = 0.0;
+
+    #pragma omp parallel for reduction(+:count,sum) schedule(static)
+    for (std::int64_t i = 0; i < static_cast<std::int64_t>(t.rows.size()); i++) {
+        const auto& row = t.rows[i];
         if (row.base_passenger_fare && *row.base_passenger_fare > threshold) {
-            r.count++;
-            r.sum += *row.base_passenger_fare;
+            count++;
+            sum += *row.base_passenger_fare;
         }
     }
-    return r;
+
+    return QueryResult{count, sum};
 }
 
 static QueryResult query_miles_gt(const TripTable& t, double threshold) {
-    QueryResult r;
-    for (const auto& row : t.rows) {
+    std::size_t count = 0;
+    double sum = 0.0;
+
+    #pragma omp parallel for reduction(+:count,sum) schedule(static)
+    for (std::int64_t i = 0; i < static_cast<std::int64_t>(t.rows.size()); i++) {
+        const auto& row = t.rows[i];
         if (row.trip_miles && *row.trip_miles > threshold) {
-            r.count++;
-            r.sum += *row.trip_miles;
+            count++;
+            sum += *row.trip_miles;
         }
     }
-    return r;
+
+    return QueryResult{count, sum};
 }
 
 // ---------- Pretty print table ----------

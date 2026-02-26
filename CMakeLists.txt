@@ -8,6 +8,9 @@ add_executable(tlc
         src/main.cpp
 )
 
+find_package(OpenMP REQUIRED)
+target_link_libraries(tlc PRIVATE OpenMP::OpenMP_CXX)
+
 # Basic performance-friendly flags for Release
 if (NOT MSVC)
     target_compile_options(tlc PRIVATE -Wall -Wextra -Wpedantic)
