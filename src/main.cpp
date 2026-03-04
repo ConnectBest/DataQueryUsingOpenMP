@@ -1,5 +1,4 @@
 #include <chrono>
-#include <cstdint>
 #include <cstdlib>
 #include <cstring>
 #include <fstream>
@@ -11,6 +10,9 @@
 #include <string_view>
 #include <utility>
 #include <vector>
+#include <sstream>
+#include <limits>
+#include <cmath>
 
 using std::cerr;
 using std::cout;
@@ -139,11 +141,15 @@ static std::optional<int64_t> to_i64(std::string_view s) {
 static std::optional<double> to_f64(std::string_view s) {
     s = trim(s);
     if (s.empty()) return std::nullopt;
-    // std::strtod expects null-terminated
-    std::string tmp(s);
+
+    char buf[64];
+    if (s.size() >= sizeof(buf)) return std::nullopt; // or handle longer
+    std::memcpy(buf, s.data(), s.size());
+    buf[s.size()] = '\0';
+
     char* end = nullptr;
-    double v = std::strtod(tmp.c_str(), &end);
-    if (end == tmp.c_str()) return std::nullopt;
+    double v = std::strtod(buf, &end);
+    if (end == buf) return std::nullopt;
     return v;
 }
 
@@ -188,84 +194,109 @@ static std::optional<int64_t> to_epoch_seconds(std::string_view s) {
 
 // ---------- Data model ----------
 
-struct TripRecord {
-    std::string hvfhs_license_num;
-    std::string dispatching_base_num;
-    std::string originating_base_num;
+static inline double kNaN() { return std::numeric_limits<double>::quiet_NaN(); }
+static inline bool is_missing(double v) { return std::isnan(v); }
 
-    std::optional<int64_t> request_ts;
-    std::optional<int64_t> on_scene_ts;
-    std::optional<int64_t> pickup_ts;
-    std::optional<int64_t> dropoff_ts;
-
-    std::optional<int32_t> pu_location_id;
-    std::optional<int32_t> do_location_id;
-
-    std::optional<double> trip_miles;
-    std::optional<int32_t> trip_time; // seconds
-
-    std::optional<double> base_passenger_fare;
-    std::optional<double> tolls;
-    std::optional<double> bcf;
-    std::optional<double> sales_tax;
-    std::optional<double> congestion_surcharge;
-    std::optional<double> airport_fee;
-    std::optional<double> tips;
-    std::optional<double> driver_pay;
-
-    std::optional<bool> shared_request_flag;
-    std::optional<bool> shared_match_flag;
-    std::optional<bool> access_a_ride_flag;
-    std::optional<bool> wav_request_flag;
-    std::optional<bool> wav_match_flag;
-};
+static inline int64_t i64_or_missing(const std::optional<int64_t>& v) { return v ? *v : -1; }
+static inline int32_t i32_or_missing(const std::optional<int32_t>& v) { return v ? *v : -1; }
+static inline uint16_t u16_or_missing(const std::optional<int32_t>& v) { return v ? static_cast<uint16_t>(*v) : 0; }
+static inline double f64_or_missing(const std::optional<double>& v) { return v ? *v : kNaN(); }
+static inline uint8_t flag_or_missing(const std::optional<bool>& v) {
+    if (!v) return 0;
+    return *v ? 2 : 1;
+}
 
 struct TripTable {
-    std::vector<TripRecord> rows;
+    // Keep strings for now if you must; Phase 3 best is to dictionary-encode.
+    // If you want to keep it simple for first pass, store strings in separate vectors:
+    std::vector<std::string> hvfhs_license_num;
+    std::vector<std::string> dispatching_base_num;
+    std::vector<std::string> originating_base_num;
+
+    std::vector<int64_t> request_ts;
+    std::vector<int64_t> on_scene_ts;
+    std::vector<int64_t> pickup_ts;
+    std::vector<int64_t> dropoff_ts;
+
+    std::vector<uint16_t> pu_location_id;
+    std::vector<uint16_t> do_location_id;
+
+    std::vector<double> trip_miles;
+    std::vector<int32_t> trip_time;
+
+    std::vector<double> base_passenger_fare;
+    std::vector<double> tolls;
+    std::vector<double> bcf;
+    std::vector<double> sales_tax;
+    std::vector<double> congestion_surcharge;
+    std::vector<double> airport_fee;
+    std::vector<double> tips;
+    std::vector<double> driver_pay;
+
+    std::vector<uint8_t> shared_request_flag;
+    std::vector<uint8_t> shared_match_flag;
+    std::vector<uint8_t> access_a_ride_flag;
+    std::vector<uint8_t> wav_request_flag;
+    std::vector<uint8_t> wav_match_flag;
+
+    std::size_t size() const { return tips.size(); }
+
+    void reserve(std::size_t n) {
+        hvfhs_license_num.reserve(n);
+        dispatching_base_num.reserve(n);
+        originating_base_num.reserve(n);
+
+        request_ts.reserve(n); on_scene_ts.reserve(n); pickup_ts.reserve(n); dropoff_ts.reserve(n);
+        pu_location_id.reserve(n); do_location_id.reserve(n);
+        trip_miles.reserve(n); trip_time.reserve(n);
+
+        base_passenger_fare.reserve(n); tolls.reserve(n); bcf.reserve(n); sales_tax.reserve(n);
+        congestion_surcharge.reserve(n); airport_fee.reserve(n); tips.reserve(n); driver_pay.reserve(n);
+
+        shared_request_flag.reserve(n); shared_match_flag.reserve(n); access_a_ride_flag.reserve(n);
+        wav_request_flag.reserve(n); wav_match_flag.reserve(n);
+    }
 };
 
-// Map columns by index based on header ordering.
-static TripRecord parse_trip_row(const std::vector<std::string>& f) {
+static void append_trip_row(TripTable& t, const std::vector<std::string>& f) {
     if (f.size() != 24) {
-        throw std::runtime_error(
-            "Unexpected column count. Expected 24, got: " +
-            std::to_string(f.size())
-        );
+        throw std::runtime_error("Unexpected column count. Expected 24, got: " + std::to_string(f.size()));
     }
 
-    TripRecord r{};
+    // strings (kept as separate vectors; can be dictionary-encoded later)
+    t.hvfhs_license_num.push_back(f[0]);
+    t.dispatching_base_num.push_back(f[1]);
+    t.originating_base_num.push_back(f[2]);
 
-    r.hvfhs_license_num    = f[0];
-    r.dispatching_base_num = f[1];
-    r.originating_base_num = f[2];
+    // timestamps
+    t.request_ts.push_back(i64_or_missing(to_epoch_seconds(f[3])));
+    t.on_scene_ts.push_back(i64_or_missing(to_epoch_seconds(f[4])));
+    t.pickup_ts.push_back(i64_or_missing(to_epoch_seconds(f[5])));
+    t.dropoff_ts.push_back(i64_or_missing(to_epoch_seconds(f[6])));
 
-    r.request_ts  = to_epoch_seconds(f[3]);
-    r.on_scene_ts = to_epoch_seconds(f[4]);
-    r.pickup_ts   = to_epoch_seconds(f[5]);
-    r.dropoff_ts  = to_epoch_seconds(f[6]);
+    // ids
+    t.pu_location_id.push_back(u16_or_missing(to_i32(f[7])));
+    t.do_location_id.push_back(u16_or_missing(to_i32(f[8])));
 
-    r.pu_location_id = to_i32(f[7]);
-    r.do_location_id = to_i32(f[8]);
+    // metrics
+    t.trip_miles.push_back(f64_or_missing(to_f64(f[9])));
+    t.trip_time.push_back(i32_or_missing(to_i32(f[10])));
 
-    r.trip_miles = to_f64(f[9]);
-    r.trip_time  = to_i32(f[10]);
+    t.base_passenger_fare.push_back(f64_or_missing(to_f64(f[11])));
+    t.tolls.push_back(f64_or_missing(to_f64(f[12])));
+    t.bcf.push_back(f64_or_missing(to_f64(f[13])));
+    t.sales_tax.push_back(f64_or_missing(to_f64(f[14])));
+    t.congestion_surcharge.push_back(f64_or_missing(to_f64(f[15])));
+    t.airport_fee.push_back(f64_or_missing(to_f64(f[16])));
+    t.tips.push_back(f64_or_missing(to_f64(f[17])));
+    t.driver_pay.push_back(f64_or_missing(to_f64(f[18])));
 
-    r.base_passenger_fare  = to_f64(f[11]);
-    r.tolls                = to_f64(f[12]);
-    r.bcf                  = to_f64(f[13]);
-    r.sales_tax            = to_f64(f[14]);
-    r.congestion_surcharge = to_f64(f[15]);
-    r.airport_fee          = to_f64(f[16]);
-    r.tips                 = to_f64(f[17]);
-    r.driver_pay           = to_f64(f[18]);
-
-    r.shared_request_flag = to_flag(f[19]);
-    r.shared_match_flag   = to_flag(f[20]);
-    r.access_a_ride_flag  = to_flag(f[21]);
-    r.wav_request_flag    = to_flag(f[22]);
-    r.wav_match_flag      = to_flag(f[23]);
-
-    return r;
+    // flags as compact tristate
+    t.shared_request_flag.push_back(flag_or_missing(to_flag(f[19])));
+    t.shared_match_flag.push_back(flag_or_missing(to_flag(f[20])));
+    t.access_a_ride_flag.push_back(flag_or_missing(to_flag(f[21])));
+    t.wav_request_flag.push_back(flag_or_missing(to_flag(f[22])));
+    t.wav_match_flag.push_back(flag_or_missing(to_flag(f[23])));
 }
 
 // ---------- Reader ----------
@@ -275,7 +306,7 @@ static TripTable load_trip_csv(const std::string& path, bool has_header) {
     if (!in) throw std::runtime_error("Failed to open: " + path);
 
     TripTable t{};
-    t.rows.reserve(1'000'000);
+    t.reserve(100'000'000);
 
     std::string line;
     bool first = true;
@@ -292,7 +323,7 @@ static TripTable load_trip_csv(const std::string& path, bool has_header) {
         if (fields.size() == 1 && fields[0].empty()) continue;
 
         try {
-            t.rows.push_back(parse_trip_row(fields));
+            append_trip_row(t, fields);
         } catch (const std::exception& e) {
             throw std::runtime_error(std::string("Parse error: ") + e.what());
         }
@@ -312,12 +343,14 @@ static QueryResult query_tips_gt(const TripTable& t, double threshold) {
     std::size_t count = 0;
     double sum = 0.0;
 
+    const auto& tips = t.tips;
+
     #pragma omp parallel for reduction(+:count,sum) schedule(static)
-    for (std::int64_t i = 0; i < static_cast<std::int64_t>(t.rows.size()); i++) {
-        const auto& row = t.rows[i];
-        if (row.tips && *row.tips > threshold) {
+    for (std::int64_t i = 0; i < static_cast<std::int64_t>(tips.size()); i++) {
+        double v = tips[i];
+        if (!std::isnan(v) && v > threshold) {
             count++;
-            sum += *row.tips;
+            sum += v;
         }
     }
 
@@ -328,12 +361,14 @@ static QueryResult query_fare_gt(const TripTable& t, double threshold) {
     std::size_t count = 0;
     double sum = 0.0;
 
+    const auto& fare = t.base_passenger_fare;
+
     #pragma omp parallel for reduction(+:count,sum) schedule(static)
-    for (std::int64_t i = 0; i < static_cast<std::int64_t>(t.rows.size()); i++) {
-        const auto& row = t.rows[i];
-        if (row.base_passenger_fare && *row.base_passenger_fare > threshold) {
+    for (std::int64_t i = 0; i < static_cast<std::int64_t>(fare.size()); i++) {
+        double v = fare[i];
+        if (!std::isnan(v) && v > threshold) {
             count++;
-            sum += *row.base_passenger_fare;
+            sum += v;
         }
     }
 
@@ -344,12 +379,14 @@ static QueryResult query_miles_gt(const TripTable& t, double threshold) {
     std::size_t count = 0;
     double sum = 0.0;
 
+    const auto& miles = t.trip_miles;
+
     #pragma omp parallel for reduction(+:count,sum) schedule(static)
-    for (std::int64_t i = 0; i < static_cast<std::int64_t>(t.rows.size()); i++) {
-        const auto& row = t.rows[i];
-        if (row.trip_miles && *row.trip_miles > threshold) {
+    for (std::int64_t i = 0; i < static_cast<std::int64_t>(miles.size()); i++) {
+        double v = miles[i];
+        if (!std::isnan(v) && v > threshold) {
             count++;
-            sum += *row.trip_miles;
+            sum += v;
         }
     }
 
@@ -366,9 +403,8 @@ static std::string opt_to_string(const std::optional<T>& v) {
 }
 
 static void print_preview(const TripTable& t, std::size_t limit) {
-    auto n = std::min(limit, t.rows.size());
-
-    cout << "Loaded rows: " << t.rows.size() << "\n";
+    auto n = std::min(limit, t.size());
+    cout << "Loaded rows: " << t.size() << "\n";
     cout << "Preview first " << n << " rows:\n\n";
 
     cout << std::left
@@ -384,15 +420,26 @@ static void print_preview(const TripTable& t, std::size_t limit) {
     cout << std::string(68, '-') << "\n";
 
     for (std::size_t i = 0; i < n; i++) {
-        const auto& r = t.rows[i];
+        auto pu = t.pu_location_id[i];
+        auto d0 = t.do_location_id[i];
+        auto miles = t.trip_miles[i];
+        auto time_s = t.trip_time[i];
+        auto fare = t.base_passenger_fare[i];
+        auto tips = t.tips[i];
+        auto shared = t.shared_request_flag[i]; // 0/1/2
+
+        auto miles_s = std::isnan(miles) ? "" : (std::ostringstream{} << std::fixed << std::setprecision(2) << miles).str();
+        auto fare_s  = std::isnan(fare)  ? "" : (std::ostringstream{} << std::fixed << std::setprecision(2) << fare).str();
+        auto tips_s  = std::isnan(tips)  ? "" : (std::ostringstream{} << std::fixed << std::setprecision(2) << tips).str();
+
         cout << std::left
-             << std::setw(8)  << opt_to_string(r.pu_location_id)
-             << std::setw(8)  << opt_to_string(r.do_location_id)
-             << std::setw(10) << (r.trip_miles ? (std::ostringstream{} << std::fixed << std::setprecision(2) << *r.trip_miles).str() : "")
-             << std::setw(10) << opt_to_string(r.trip_time)
-             << std::setw(12) << (r.base_passenger_fare ? (std::ostringstream{} << std::fixed << std::setprecision(2) << *r.base_passenger_fare).str() : "")
-             << std::setw(12) << (r.tips ? (std::ostringstream{} << std::fixed << std::setprecision(2) << *r.tips).str() : "")
-             << std::setw(8)  << opt_to_string(r.shared_request_flag)
+             << std::setw(8)  << (pu ? std::to_string(pu) : "")
+             << std::setw(8)  << (d0 ? std::to_string(d0) : "")
+             << std::setw(10) << miles_s
+             << std::setw(10) << (time_s >= 0 ? std::to_string(time_s) : "")
+             << std::setw(12) << fare_s
+             << std::setw(12) << tips_s
+             << std::setw(8)  << (shared == 0 ? "" : (shared == 2 ? "Y" : "N"))
              << "\n";
     }
 }
