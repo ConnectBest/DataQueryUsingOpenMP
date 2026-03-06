@@ -1,5 +1,4 @@
 #include <chrono>
-#include <cstdint>
 #include <cstdlib>
 #include <cstring>
 #include <fstream>
@@ -119,21 +118,6 @@ static std::optional<int32_t> to_i32(std::string_view s) {
         v = v * 10 + (c - '0');
     }
     return static_cast<int32_t>(v * sign);
-}
-
-static std::optional<int64_t> to_i64(std::string_view s) {
-    s = trim(s);
-    if (s.empty()) return std::nullopt;
-    int sign = 1;
-    std::size_t i = 0;
-    if (s[0] == '-') { sign = -1; i = 1; }
-    int64_t v = 0;
-    for (; i < s.size(); i++) {
-        char c = s[i];
-        if (c < '0' || c > '9') break;
-        v = v * 10 + (c - '0');
-    }
-    return v * sign;
 }
 
 static std::optional<double> to_f64(std::string_view s) {
@@ -388,12 +372,16 @@ int main(int argc, char** argv) {
     try {
         auto args = parse_args(argc, argv);
 
+        cout << "Phase 1:\n";
+
         auto t0 = std::chrono::steady_clock::now();
         TripTable table = load_trip_csv(args.path, args.header);
         auto t1 = std::chrono::steady_clock::now();
 
         auto load_ms = std::chrono::duration_cast<std::chrono::milliseconds>(t1 - t0).count();
         cout << "Load time: " << load_ms << " ms\n";
+        std::cerr << "sizeof(TripRecord)=" << sizeof(TripRecord) << "\n";
+        std::cerr << "rows=" << table.rows.size() << "\n";
 
         auto q0 = std::chrono::steady_clock::now();
         auto r1 = query_tips_gt(table, 5.0);
