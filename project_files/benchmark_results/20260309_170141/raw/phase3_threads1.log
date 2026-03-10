@@ -1,0 +1,28 @@
+Phase 3:
+Load time: 748808 ms
+Query tips>5.0:   89 ms, count=6451648
+Query fare>40.0:  160 ms, count=12383482
+Query miles>10.0: 158 ms, count=12182195
+Loaded rows: 95846120
+Preview first 0 rows:
+
+PU      DO      miles     time_s    fare        tips        shared  
+--------------------------------------------------------------------
+      749.72 real       739.73 user         9.81 sys
+         26178781184  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+             2234935  page reclaims
+                  23  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                   9  voluntary context switches
+               13720  involuntary context switches
+      18865653289877  instructions retired
+       3068364808120  cycles elapsed
+         29061534912  peak memory footprint

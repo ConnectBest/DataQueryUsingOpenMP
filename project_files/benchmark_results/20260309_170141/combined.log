@@ -1,0 +1,940 @@
+===== warmup phase1 Mon Mar  9 17:14:44 PDT 2026 =====
+threads=1
+binary=./programs/tlc_phase1
+dataset=hvfhv_data/fhvhv_subset.csv
+Phase 1:
+Load time: 771774 ms
+sizeof(TripRecord)=320
+rows=95846120
+Query tips>5.0:   3506 ms, count=6451648
+Query fare>40.0:  4889 ms, count=12383482
+Query miles>10.0: 2337 ms, count=12182195
+Loaded rows: 95846120
+Preview first 0 rows:
+
+PU      DO      miles     time_s    fare        tips        shared  
+--------------------------------------------------------------------
+      783.57 real       753.80 user        21.47 sys
+         31646171136  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+            10086484  page reclaims
+                   1  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+              125174  voluntary context switches
+               70010  involuntary context switches
+      18950656034462  instructions retired
+       3131407327977  cycles elapsed
+         40981525520  peak memory footprint
+exit_code=0
+
+===== warmup phase2 Mon Mar  9 17:28:32 PDT 2026 =====
+threads=4
+binary=./programs/tlc_phase2
+dataset=hvfhv_data/fhvhv_subset.csv
+Phase 2:
+Load time: 758260 ms
+Query tips>5.0:   1654 ms, count=6451648
+Query fare>40.0:  1277 ms, count=12383482
+Query miles>10.0: 2921 ms, count=12182195
+Loaded rows: 95846120
+Preview first 0 rows:
+
+PU      DO      miles     time_s    fare        tips        shared  
+--------------------------------------------------------------------
+      767.80 real       746.24 user        25.53 sys
+         26649411584  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+             9651466  page reclaims
+                  52  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                  21  voluntary context switches
+              166900  involuntary context switches
+      18944971655093  instructions retired
+       3144535740029  cycles elapsed
+         40981574672  peak memory footprint
+exit_code=0
+
+===== warmup phase3 Mon Mar  9 17:42:00 PDT 2026 =====
+threads=4
+binary=./programs/tlc_phase3
+dataset=hvfhv_data/fhvhv_subset.csv
+Phase 3:
+Load time: 746398 ms
+Query tips>5.0:   32 ms, count=6451648
+Query fare>40.0:  52 ms, count=12383482
+Query miles>10.0: 56 ms, count=12182195
+Loaded rows: 95846120
+Preview first 0 rows:
+
+PU      DO      miles     time_s    fare        tips        shared  
+--------------------------------------------------------------------
+      747.43 real       738.76 user         8.52 sys
+         25776013312  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+             2293442  page reclaims
+                  21  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                  81  voluntary context switches
+                9683  involuntary context switches
+      18865349511258  instructions retired
+       3050607567206  cycles elapsed
+         29059650752  peak memory footprint
+exit_code=0
+
+===== phase1 run1 Mon Mar  9 17:55:52 PDT 2026 =====
+threads=1
+binary=./programs/tlc_phase1
+dataset=hvfhv_data/fhvhv_subset.csv
+Phase 1:
+Load time: 759714 ms
+sizeof(TripRecord)=320
+rows=95846120
+Query tips>5.0:   4342 ms, count=6451648
+Query fare>40.0:  5063 ms, count=12383482
+Query miles>10.0: 1755 ms, count=12182195
+Loaded rows: 95846120
+Preview first 0 rows:
+
+PU      DO      miles     time_s    fare        tips        shared  
+--------------------------------------------------------------------
+      772.03 real       744.28 user        23.76 sys
+         30671798272  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+            11066823  page reclaims
+                  16  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                   9  voluntary context switches
+               89126  involuntary context switches
+      18952686449343  instructions retired
+       3138156297415  cycles elapsed
+         44823412440  peak memory footprint
+exit_code=0
+
+===== phase1 run2 Mon Mar  9 18:09:41 PDT 2026 =====
+threads=1
+binary=./programs/tlc_phase1
+dataset=hvfhv_data/fhvhv_subset.csv
+Phase 1:
+Load time: 757360 ms
+sizeof(TripRecord)=320
+rows=95846120
+Query tips>5.0:   4102 ms, count=6451648
+Query fare>40.0:  5077 ms, count=12383482
+Query miles>10.0: 1444 ms, count=12182195
+Loaded rows: 95846120
+Preview first 0 rows:
+
+PU      DO      miles     time_s    fare        tips        shared  
+--------------------------------------------------------------------
+      769.13 real       743.34 user        22.30 sys
+         30671814656  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+            10863970  page reclaims
+                  14  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                 952  voluntary context switches
+               73603  involuntary context switches
+      18952951936759  instructions retired
+       3128121026016  cycles elapsed
+         44823445208  peak memory footprint
+exit_code=0
+
+===== phase1 run3 Mon Mar  9 18:23:30 PDT 2026 =====
+threads=1
+binary=./programs/tlc_phase1
+dataset=hvfhv_data/fhvhv_subset.csv
+Phase 1:
+Load time: 756743 ms
+sizeof(TripRecord)=320
+rows=95846120
+Query tips>5.0:   3982 ms, count=6451648
+Query fare>40.0:  5153 ms, count=12383482
+Query miles>10.0: 1749 ms, count=12182195
+Loaded rows: 95846120
+Preview first 0 rows:
+
+PU      DO      miles     time_s    fare        tips        shared  
+--------------------------------------------------------------------
+      768.77 real       742.90 user        22.24 sys
+         30671798272  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+            11008194  page reclaims
+                  14  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                1620  voluntary context switches
+               71568  involuntary context switches
+      18953738165123  instructions retired
+       3128110754054  cycles elapsed
+         44823428824  peak memory footprint
+exit_code=0
+
+===== phase1 run4 Mon Mar  9 18:37:19 PDT 2026 =====
+threads=1
+binary=./programs/tlc_phase1
+dataset=hvfhv_data/fhvhv_subset.csv
+Phase 1:
+Load time: 756418 ms
+sizeof(TripRecord)=320
+rows=95846120
+Query tips>5.0:   3964 ms, count=6451648
+Query fare>40.0:  5170 ms, count=12383482
+Query miles>10.0: 2172 ms, count=12182195
+Loaded rows: 95846120
+Preview first 0 rows:
+
+PU      DO      miles     time_s    fare        tips        shared  
+--------------------------------------------------------------------
+      768.87 real       742.76 user        22.39 sys
+         30671814656  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+            10966858  page reclaims
+                  13  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                  12  voluntary context switches
+               76639  involuntary context switches
+      18953097315242  instructions retired
+       3128331301385  cycles elapsed
+         44823461616  peak memory footprint
+exit_code=0
+
+===== phase1 run5 Mon Mar  9 18:51:07 PDT 2026 =====
+threads=1
+binary=./programs/tlc_phase1
+dataset=hvfhv_data/fhvhv_subset.csv
+Phase 1:
+Load time: 756426 ms
+sizeof(TripRecord)=320
+rows=95846120
+Query tips>5.0:   3871 ms, count=6451648
+Query fare>40.0:  5206 ms, count=12383482
+Query miles>10.0: 1439 ms, count=12182195
+Loaded rows: 95846120
+Preview first 0 rows:
+
+PU      DO      miles     time_s    fare        tips        shared  
+--------------------------------------------------------------------
+      768.06 real       742.78 user        21.88 sys
+         30671814656  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+            10676586  page reclaims
+                  13  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                 482  voluntary context switches
+               72990  involuntary context switches
+      18950416967651  instructions retired
+       3127413119927  cycles elapsed
+         44823445208  peak memory footprint
+exit_code=0
+
+===== phase1 run6 Mon Mar  9 19:04:55 PDT 2026 =====
+threads=1
+binary=./programs/tlc_phase1
+dataset=hvfhv_data/fhvhv_subset.csv
+Phase 1:
+Load time: 755936 ms
+sizeof(TripRecord)=320
+rows=95846120
+Query tips>5.0:   4156 ms, count=6451648
+Query fare>40.0:  5121 ms, count=12383482
+Query miles>10.0: 1525 ms, count=12182195
+Loaded rows: 95846120
+Preview first 0 rows:
+
+PU      DO      miles     time_s    fare        tips        shared  
+--------------------------------------------------------------------
+      767.88 real       742.52 user        21.89 sys
+         30671814656  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+            10613961  page reclaims
+                  13  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                 655  voluntary context switches
+               77057  involuntary context switches
+      18949971312732  instructions retired
+       3128525257739  cycles elapsed
+         44823445208  peak memory footprint
+exit_code=0
+
+===== phase1 run7 Mon Mar  9 19:18:42 PDT 2026 =====
+threads=1
+binary=./programs/tlc_phase1
+dataset=hvfhv_data/fhvhv_subset.csv
+Phase 1:
+Load time: 755270 ms
+sizeof(TripRecord)=320
+rows=95846120
+Query tips>5.0:   3862 ms, count=6451648
+Query fare>40.0:  5207 ms, count=12383482
+Query miles>10.0: 1490 ms, count=12182195
+Loaded rows: 95846120
+Preview first 0 rows:
+
+PU      DO      miles     time_s    fare        tips        shared  
+--------------------------------------------------------------------
+      766.98 real       741.69 user        21.76 sys
+         30671814656  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+            10522739  page reclaims
+                  13  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                   7  voluntary context switches
+               72414  involuntary context switches
+      18949799403061  instructions retired
+       3126510101683  cycles elapsed
+         44823428824  peak memory footprint
+exit_code=0
+
+===== phase1 run8 Mon Mar  9 19:32:29 PDT 2026 =====
+threads=1
+binary=./programs/tlc_phase1
+dataset=hvfhv_data/fhvhv_subset.csv
+Phase 1:
+Load time: 754335 ms
+sizeof(TripRecord)=320
+rows=95846120
+Query tips>5.0:   4088 ms, count=6451648
+Query fare>40.0:  5065 ms, count=12383482
+Query miles>10.0: 2179 ms, count=12182195
+Loaded rows: 95846120
+Preview first 0 rows:
+
+PU      DO      miles     time_s    fare        tips        shared  
+--------------------------------------------------------------------
+      766.82 real       740.76 user        22.38 sys
+         30671814656  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+            11038215  page reclaims
+                  13  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                 479  voluntary context switches
+               81166  involuntary context switches
+      18953525263562  instructions retired
+       3128183543764  cycles elapsed
+         44823461616  peak memory footprint
+exit_code=0
+
+===== phase1 run9 Mon Mar  9 19:46:16 PDT 2026 =====
+threads=1
+binary=./programs/tlc_phase1
+dataset=hvfhv_data/fhvhv_subset.csv
+Phase 1:
+Load time: 755018 ms
+sizeof(TripRecord)=320
+rows=95846120
+Query tips>5.0:   3981 ms, count=6451648
+Query fare>40.0:  5208 ms, count=12383482
+Query miles>10.0: 1689 ms, count=12182195
+Loaded rows: 95846120
+Preview first 0 rows:
+
+PU      DO      miles     time_s    fare        tips        shared  
+--------------------------------------------------------------------
+      767.04 real       741.42 user        22.03 sys
+         30671798272  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+            10748110  page reclaims
+                  13  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                1662  voluntary context switches
+               73009  involuntary context switches
+      18951159833287  instructions retired
+       3129778259960  cycles elapsed
+         44823428824  peak memory footprint
+exit_code=0
+
+===== phase1 run10 Mon Mar  9 20:00:03 PDT 2026 =====
+threads=1
+binary=./programs/tlc_phase1
+dataset=hvfhv_data/fhvhv_subset.csv
+Phase 1:
+Load time: 754880 ms
+sizeof(TripRecord)=320
+rows=95846120
+Query tips>5.0:   3881 ms, count=6451648
+Query fare>40.0:  5155 ms, count=12383482
+Query miles>10.0: 2042 ms, count=12182195
+Loaded rows: 95846120
+Preview first 0 rows:
+
+PU      DO      miles     time_s    fare        tips        shared  
+--------------------------------------------------------------------
+      767.13 real       741.13 user        22.38 sys
+         30671814656  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+            10805168  page reclaims
+                  14  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                   5  voluntary context switches
+               75532  involuntary context switches
+      18951592842247  instructions retired
+       3130260857005  cycles elapsed
+         44823428824  peak memory footprint
+exit_code=0
+
+===== phase2 threads1 Mon Mar  9 20:13:55 PDT 2026 =====
+threads=1
+binary=./programs/tlc_phase2
+dataset=hvfhv_data/fhvhv_subset.csv
+Phase 2:
+Load time: 760090 ms
+Query tips>5.0:   4257 ms, count=6451648
+Query fare>40.0:  4910 ms, count=12383482
+Query miles>10.0: 1381 ms, count=12182195
+Loaded rows: 95846120
+Preview first 0 rows:
+
+PU      DO      miles     time_s    fare        tips        shared  
+--------------------------------------------------------------------
+      771.80 real       745.69 user        22.50 sys
+         30672322560  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+            10795761  page reclaims
+                  50  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                 191  voluntary context switches
+               79321  involuntary context switches
+      18951313087908  instructions retired
+       3149358245831  cycles elapsed
+         44823461568  peak memory footprint
+exit_code=0
+
+===== phase2 threads2 Mon Mar  9 20:27:41 PDT 2026 =====
+threads=2
+binary=./programs/tlc_phase2
+dataset=hvfhv_data/fhvhv_subset.csv
+Phase 2:
+Load time: 754739 ms
+Query tips>5.0:   2545 ms, count=6451648
+Query fare>40.0:  3977 ms, count=12383482
+Query miles>10.0: 3814 ms, count=12182195
+Loaded rows: 95846120
+Preview first 0 rows:
+
+PU      DO      miles     time_s    fare        tips        shared  
+--------------------------------------------------------------------
+      766.52 real       741.07 user        28.20 sys
+         30672371712  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+            11306950  page reclaims
+                  23  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                 223  voluntary context switches
+              164176  involuntary context switches
+      18959916166478  instructions retired
+       3151831596447  cycles elapsed
+         44823445208  peak memory footprint
+exit_code=0
+
+===== phase2 threads4 Mon Mar  9 20:41:26 PDT 2026 =====
+threads=4
+binary=./programs/tlc_phase2
+dataset=hvfhv_data/fhvhv_subset.csv
+Phase 2:
+Load time: 754566 ms
+Query tips>5.0:   1677 ms, count=6451648
+Query fare>40.0:  1331 ms, count=12383482
+Query miles>10.0: 3008 ms, count=12182195
+Loaded rows: 95846120
+Preview first 0 rows:
+
+PU      DO      miles     time_s    fare        tips        shared  
+--------------------------------------------------------------------
+      764.58 real       740.63 user        27.40 sys
+         27206828032  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+            10596013  page reclaims
+                  21  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                  14  voluntary context switches
+              181308  involuntary context switches
+      18952247971684  instructions retired
+       3146611034261  cycles elapsed
+         44823445208  peak memory footprint
+exit_code=0
+
+===== phase2 threads6 Mon Mar  9 20:55:19 PDT 2026 =====
+threads=6
+binary=./programs/tlc_phase2
+dataset=hvfhv_data/fhvhv_subset.csv
+Phase 2:
+Load time: 762520 ms
+Query tips>5.0:   1705 ms, count=6451648
+Query fare>40.0:  1320 ms, count=12383482
+Query miles>10.0: 2666 ms, count=12182195
+Loaded rows: 95846120
+Preview first 0 rows:
+
+PU      DO      miles     time_s    fare        tips        shared  
+--------------------------------------------------------------------
+      772.87 real       747.65 user        31.85 sys
+         26064011264  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+            10718182  page reclaims
+                  21  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                   9  voluntary context switches
+              265843  involuntary context switches
+      18953938951667  instructions retired
+       3184749197817  cycles elapsed
+         44823445208  peak memory footprint
+exit_code=0
+
+===== phase2 threads8 Mon Mar  9 21:09:10 PDT 2026 =====
+threads=8
+binary=./programs/tlc_phase2
+dataset=hvfhv_data/fhvhv_subset.csv
+Phase 2:
+Load time: 761008 ms
+Query tips>5.0:   1582 ms, count=6451648
+Query fare>40.0:  1259 ms, count=12383482
+Query miles>10.0: 2587 ms, count=12182195
+Loaded rows: 95846120
+Preview first 0 rows:
+
+PU      DO      miles     time_s    fare        tips        shared  
+--------------------------------------------------------------------
+      771.33 real       746.13 user        34.51 sys
+         28782575616  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+            10893206  page reclaims
+                  22  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                   6  voluntary context switches
+              311428  involuntary context switches
+      18956318289949  instructions retired
+       3187599501827  cycles elapsed
+         44823461592  peak memory footprint
+exit_code=0
+
+===== phase2 threads10 Mon Mar  9 21:23:00 PDT 2026 =====
+threads=10
+binary=./programs/tlc_phase2
+dataset=hvfhv_data/fhvhv_subset.csv
+Phase 2:
+Load time: 759814 ms
+Query tips>5.0:   1572 ms, count=6451648
+Query fare>40.0:  1214 ms, count=12383482
+Query miles>10.0: 2526 ms, count=12182195
+Loaded rows: 95846120
+Preview first 0 rows:
+
+PU      DO      miles     time_s    fare        tips        shared  
+--------------------------------------------------------------------
+      769.87 real       745.38 user        37.40 sys
+         28306030592  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+            10681435  page reclaims
+                  22  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                   4  voluntary context switches
+              377709  involuntary context switches
+      18955776195252  instructions retired
+       3196159267253  cycles elapsed
+         44823494384  peak memory footprint
+exit_code=0
+
+===== phase2 threads12 Mon Mar  9 21:36:50 PDT 2026 =====
+threads=12
+binary=./programs/tlc_phase2
+dataset=hvfhv_data/fhvhv_subset.csv
+Phase 2:
+Load time: 759592 ms
+Query tips>5.0:   1520 ms, count=6451648
+Query fare>40.0:  1143 ms, count=12383482
+Query miles>10.0: 2371 ms, count=12182195
+Loaded rows: 95846120
+Preview first 0 rows:
+
+PU      DO      miles     time_s    fare        tips        shared  
+--------------------------------------------------------------------
+      769.77 real       744.78 user        39.76 sys
+         27117518848  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+            10893715  page reclaims
+                  21  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                 229  voluntary context switches
+              475194  involuntary context switches
+      18958626552174  instructions retired
+       3202314482128  cycles elapsed
+         44823494384  peak memory footprint
+exit_code=0
+
+===== phase3 threads1 Mon Mar  9 21:50:20 PDT 2026 =====
+threads=1
+binary=./programs/tlc_phase3
+dataset=hvfhv_data/fhvhv_subset.csv
+Phase 3:
+Load time: 748808 ms
+Query tips>5.0:   89 ms, count=6451648
+Query fare>40.0:  160 ms, count=12383482
+Query miles>10.0: 158 ms, count=12182195
+Loaded rows: 95846120
+Preview first 0 rows:
+
+PU      DO      miles     time_s    fare        tips        shared  
+--------------------------------------------------------------------
+      749.72 real       739.73 user         9.81 sys
+         26178781184  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+             2234935  page reclaims
+                  23  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                   9  voluntary context switches
+               13720  involuntary context switches
+      18865653289877  instructions retired
+       3068364808120  cycles elapsed
+         29061534912  peak memory footprint
+exit_code=0
+
+===== phase3 threads2 Mon Mar  9 22:03:50 PDT 2026 =====
+threads=2
+binary=./programs/tlc_phase3
+dataset=hvfhv_data/fhvhv_subset.csv
+Phase 3:
+Load time: 749403 ms
+Query tips>5.0:   52 ms, count=6451648
+Query fare>40.0:  91 ms, count=12383482
+Query miles>10.0: 94 ms, count=12182195
+Loaded rows: 95846120
+Preview first 0 rows:
+
+PU      DO      miles     time_s    fare        tips        shared  
+--------------------------------------------------------------------
+      750.20 real       740.22 user         9.93 sys
+         26163904512  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+             2318397  page reclaims
+                  20  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                   4  voluntary context switches
+               11664  involuntary context switches
+      18865720665445  instructions retired
+       3073721598694  cycles elapsed
+         29067498664  peak memory footprint
+exit_code=0
+
+===== phase3 threads4 Mon Mar  9 22:17:19 PDT 2026 =====
+threads=4
+binary=./programs/tlc_phase3
+dataset=hvfhv_data/fhvhv_subset.csv
+Phase 3:
+Load time: 748554 ms
+Query tips>5.0:   34 ms, count=6451648
+Query fare>40.0:  59 ms, count=12383482
+Query miles>10.0: 60 ms, count=12182195
+Loaded rows: 95846120
+Preview first 0 rows:
+
+PU      DO      miles     time_s    fare        tips        shared  
+--------------------------------------------------------------------
+      749.25 real       739.39 user        10.00 sys
+         25984991232  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+             2344499  page reclaims
+                  21  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                   5  voluntary context switches
+               12599  involuntary context switches
+      18865993140885  instructions retired
+       3071318145550  cycles elapsed
+         29087732952  peak memory footprint
+exit_code=0
+
+===== phase3 threads6 Mon Mar  9 22:30:49 PDT 2026 =====
+threads=6
+binary=./programs/tlc_phase3
+dataset=hvfhv_data/fhvhv_subset.csv
+Phase 3:
+Load time: 748749 ms
+Query tips>5.0:   23 ms, count=6451648
+Query fare>40.0:  41 ms, count=12383482
+Query miles>10.0: 41 ms, count=12182195
+Loaded rows: 95846120
+Preview first 0 rows:
+
+PU      DO      miles     time_s    fare        tips        shared  
+--------------------------------------------------------------------
+      749.43 real       739.58 user        10.03 sys
+         25607766016  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+             2368494  page reclaims
+                  21  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                   4  voluntary context switches
+               11887  involuntary context switches
+      18866289798233  instructions retired
+       3072287271395  cycles elapsed
+         29053146304  peak memory footprint
+exit_code=0
+
+===== phase3 threads8 Mon Mar  9 22:44:19 PDT 2026 =====
+threads=8
+binary=./programs/tlc_phase3
+dataset=hvfhv_data/fhvhv_subset.csv
+Phase 3:
+Load time: 749144 ms
+Query tips>5.0:   20 ms, count=6451648
+Query fare>40.0:  40 ms, count=12383482
+Query miles>10.0: 37 ms, count=12182195
+Loaded rows: 95846120
+Preview first 0 rows:
+
+PU      DO      miles     time_s    fare        tips        shared  
+--------------------------------------------------------------------
+      749.81 real       739.75 user        10.33 sys
+         25579192320  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+             2392040  page reclaims
+                  21  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                   5  voluntary context switches
+               12801  involuntary context switches
+      18866452430689  instructions retired
+       3075281973589  cycles elapsed
+         29054145728  peak memory footprint
+exit_code=0
+
+===== phase3 threads10 Mon Mar  9 22:57:47 PDT 2026 =====
+threads=10
+binary=./programs/tlc_phase3
+dataset=hvfhv_data/fhvhv_subset.csv
+Phase 3:
+Load time: 747903 ms
+Query tips>5.0:   20 ms, count=6451648
+Query fare>40.0:  33 ms, count=12383482
+Query miles>10.0: 37 ms, count=12182195
+Loaded rows: 95846120
+Preview first 0 rows:
+
+PU      DO      miles     time_s    fare        tips        shared  
+--------------------------------------------------------------------
+      748.57 real       738.65 user        10.25 sys
+         25635930112  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+             2373243  page reclaims
+                  21  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                 275  voluntary context switches
+               12950  involuntary context switches
+      18866795722885  instructions retired
+       3071703026353  cycles elapsed
+         29066384576  peak memory footprint
+exit_code=0
+
+===== phase3 threads12 Mon Mar  9 23:11:16 PDT 2026 =====
+threads=12
+binary=./programs/tlc_phase3
+dataset=hvfhv_data/fhvhv_subset.csv
+Phase 3:
+Load time: 748322 ms
+Query tips>5.0:   17 ms, count=6451648
+Query fare>40.0:  33 ms, count=12383482
+Query miles>10.0: 34 ms, count=12182195
+Loaded rows: 95846120
+Preview first 0 rows:
+
+PU      DO      miles     time_s    fare        tips        shared  
+--------------------------------------------------------------------
+      748.98 real       739.04 user        10.36 sys
+         25570361344  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+             2387516  page reclaims
+                  21  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                   8  voluntary context switches
+               13771  involuntary context switches
+      18866579112933  instructions retired
+       3074025356097  cycles elapsed
+         29068678336  peak memory footprint
+exit_code=0
+

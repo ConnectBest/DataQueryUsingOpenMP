@@ -1,0 +1,21 @@
+Benchmark started: Mon Mar  9 17:01:41 PDT 2026
+Host: Michaels-Mac-mini.local
+Uname: Darwin Michaels-Mac-mini.local 25.0.0 Darwin Kernel Version 25.0.0: Mon Aug 25 21:17:54 PDT 2025; root:xnu-12377.1.9~3/RELEASE_ARM64_T6041 arm64
+Dataset: hvfhv_data/fhvhv_subset.csv
+-rw-r--r--  1 michaelkennedy  staff    14G Mar  4 08:29 hvfhv_data/fhvhv_subset.csv
+
+Executables:
+  ./programs/tlc_phase1
+c40813b3b8bafb0022a05e552d8632ef12ab2fe83ebd7440e7dc9c46965fba6b  ./programs/tlc_phase1
+  ./programs/tlc_phase2
+83b12c0e1c8637f4bc3157b335638a737bf7afd2c84a86d3475042e1fd7c4c9e  ./programs/tlc_phase2
+  ./programs/tlc_phase3
+e267af9969cb8cb0ad9017934887c50495fb7ffc2e13d3e9de2743edc2e01ec5  ./programs/tlc_phase3
+
+Phase1 runs: 10
+Thread sweep: 1 2 4 6 8 10 12
+Sleep between runs: 60s
+Benchmark finished: Mon Mar  9 23:12:16 PDT 2026
+Summary CSV: ./benchmark_results/20260309_170141/summary.csv
+Combined log: ./benchmark_results/20260309_170141/combined.log
+Metadata: ./benchmark_results/20260309_170141/metadata.txt

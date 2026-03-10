@@ -1,0 +1,30 @@
+Phase 1:
+Load time: 757360 ms
+sizeof(TripRecord)=320
+rows=95846120
+Query tips>5.0:   4102 ms, count=6451648
+Query fare>40.0:  5077 ms, count=12383482
+Query miles>10.0: 1444 ms, count=12182195
+Loaded rows: 95846120
+Preview first 0 rows:
+
+PU      DO      miles     time_s    fare        tips        shared  
+--------------------------------------------------------------------
+      769.13 real       743.34 user        22.30 sys
+         30671814656  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+            10863970  page reclaims
+                  14  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                 952  voluntary context switches
+               73603  involuntary context switches
+      18952951936759  instructions retired
+       3128121026016  cycles elapsed
+         44823445208  peak memory footprint
