@@ -8,7 +8,7 @@ querying large in‑memory datasets.
 
 The project evaluates how multi‑threaded execution impacts query
 performance on large-scale tabular data by executing analytical queries
-across a dataset exceeding **200 million records**.
+across a dataset exceeding **94 million records**.
 
 This work supports experimental research conducted for **CMPE‑275 --
 Enterprise Application Development** at **San José State University**.
